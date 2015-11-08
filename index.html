@@ -6,34 +6,23 @@
   </head>
   <body>
     <canvas id="display" width="640px" height="320px"></canvas>
+    <input type="file" id="rom-file" onchange="launchRom(this);"></input>
   </body>
+  <script type="text/javascript" src="js/rom_loader.js"></script>
+  <script type="text/javascript" src="js/cpu.js"></script>
   <script type="text/javascript" src="js/display.js"></script>
   <script type="text/javascript">
-    "use strict";
+    function launchRom(input) {
+      var displayDomContainer = document.getElementById("display");
 
-    let displayContainer = document.getElementById("display");
-    let display = new Display(displayContainer);
+      new RomLoader(input.files[0], function(romData){
+        var cpu = new CPU();
+        var display = new Display(displayDomContainer);
 
-    let refreshDisplay = function() {
-      let states = [];
+        cpu.loadRom(romData);
 
-      for (let x = 0; x < 64; x++) {
-        states[x] = [];
-        for (let y = 0; y < 32; y++) {
-          states[x].push(false);
-        }
-      }
-
-      for (let z = 0; z < 10; z++) {
-        let rndx = Math.floor(Math.random() * (63 - 0)) + 0;
-        let rndy = Math.floor(Math.random() * (31 - 0)) + 0;
-        states[rndx][rndy] = true;
-      }
-
-      display.draw(states);
+        this.setInterval(cpu.step.bind(cpu), 1000);
+      });
     }
-
-
-    window.setInterval(refreshDisplay, 100);
   </script>
 </html>

@@ -1,13 +1,13 @@
 "use strict";
 
 class Display {
-  constructor() {
-    let pixelWidth = displayContainer.width / 64;
-    let pixelHeight = displayContainer.height / 32;
+  constructor(displayDomContainer) {
+    let pixelWidth = displayDomContainer.width / 64;
+    let pixelHeight = displayDomContainer.height / 32;
 
     this.resolution = { width: 64, height: 32 };
     this.pixel = { width: pixelWidth, height: pixelHeight };
-    this.context = displayContainer.getContext("2d");
+    this.context = displayDomContainer.getContext("2d");
 
     this.setup();
   }
@@ -30,3 +30,5 @@ class Display {
     this.context.fillStyle = "#FFFFFF";
   }
 }
+
+module.exports = Display;

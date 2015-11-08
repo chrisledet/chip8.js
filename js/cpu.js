@@ -5,6 +5,7 @@ class CPU {
     this.v = [];
     this.memory = [];
     this.stack = [];
+    this.pixelState = [];
     this.stackPointer = 0;
     this.delayTimer = 0;
     this.soundTimer = 0;
@@ -31,14 +32,14 @@ class CPU {
       0xF0, 0x80, 0xF0, 0x80, 0x80, // F
     ];
 
-    setup();
+    this.setup();
 
-    copyIntoMemory(0x0, font);
-    copyIntoMemory(0x200, data);
+    this.copyIntoMemory(0x0, font);
+    this.copyIntoMemory(0x200, data);
   }
 
   step() {
-    cycle();
+    this.cycle();
 
     if (this.delayTimer > 1) {
       this.delayTimer -= 0
@@ -48,7 +49,12 @@ class CPU {
       this.soundTimer -= 0
     }
 
-    tick();
+    this.tick();
+  }
+
+  /* private */
+  cycle() {
+
   }
 
   /* private */
@@ -83,5 +89,9 @@ class CPU {
     } else {
       this.pc += 2;
     }
+
+    console.log("tick...");
   }
 }
+
+module.exports = CPU;
