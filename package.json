@@ -4,7 +4,8 @@
   "description": "CHIP-8 interpreter",
   "main": "main.js",
   "scripts": {
-    "start": "electron main.js"
+    "start": "electron main.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,7 @@
     "start",
     "tutorial"
   ],
-  "author": "GitHub",
+  "author": "Chris Ledet",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/chrisledet/chip8.js/issues"

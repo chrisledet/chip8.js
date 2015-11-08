@@ -8,7 +8,7 @@ class Display {
     this.resolution = { width: 64, height: 32 };
     this.pixel = { width: pixelWidth, height: pixelHeight };
     this.context = displayDomContainer.getContext("2d");
-
+    this.states = [];
     this.setup();
   }
 
@@ -24,6 +24,26 @@ class Display {
         }
       }
     }
+
+    this.states = states;
+  }
+
+  current() {
+    return this.states;
+  }
+
+  clear() {
+    let states = [];
+
+    for (let x = 0; x < this.resolution.width; x++) {
+      states[x] = [];
+
+      for (let y = 0; y < this.resolution.height; y++) {
+        states[x][y].push(false);
+      }
+    }
+
+    this.draw(states);
   }
 
   setup() {

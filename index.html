@@ -12,17 +12,52 @@
   <script type="text/javascript" src="js/cpu.js"></script>
   <script type="text/javascript" src="js/display.js"></script>
   <script type="text/javascript">
+    var displayDomContainer = document.getElementById("display");
+    var cpu;
+
     function launchRom(input) {
-      var displayDomContainer = document.getElementById("display");
+      var input = document.getElementById("rom-file");
 
       new RomLoader(input.files[0], function(romData){
-        var cpu = new CPU();
-        var display = new Display(displayDomContainer);
+        cpu = new CPU(
+          new Display(displayDomContainer)
+        );
 
+        cpu.debugMode = true;
         cpu.loadRom(romData);
 
-        this.setInterval(cpu.step.bind(cpu), 1000);
+        this.setInterval(cpu.step.bind(cpu), 250);
       });
     }
+
+    function userInput(e) {
+      if (!cpu) { return; }
+
+      var key = e.keyCode - 48;
+      var input = key;
+
+      if (key > 9) {
+        if (key == 33) {
+          input = 0xA;
+        } else if (key == 39) {
+          input = 0xB;
+        } else if (key == 21) {
+          input = 0xC;
+        } else if (key == 34) {
+          input = 0xD;
+        } else if (key == 36) {
+          input = 0xE;
+        } else if (key == 41) {
+          input = 0xF;
+        } else {
+          return;
+        }
+      }
+
+      cpu.setInput(input);
+    }
+
+    document.getElementById("rom-file").onchange = launchRom;
+    document.onkeydown = userInput;
   </script>
 </html>
