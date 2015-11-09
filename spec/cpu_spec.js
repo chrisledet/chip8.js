@@ -173,6 +173,85 @@ describe("CPU", function(){
         cpu.step();
         expect(cpu.v[0]).toEqual(0x23);
       });
+
+      describe("handling overflows", function(){
+        let rom;
+
+        beforeEach(function(){
+          rom = [0x60, 0xF0, 0x70, 0x11];
+          cpu.loadRom(rom);
+          cpu.step();
+        });
+
+        it("overflows to 0x1", function(){
+          cpu.step();
+          expect(cpu.v[0]).toEqual(0x1);
+        });
+      });
+    });
+
+    describe("Executing 8XY0", function(){
+      let rom;
+
+      beforeEach(function(){
+        rom = [0x61, 0xFF, 0x80, 0x10];
+        cpu.loadRom(rom);
+        cpu.step();
+      });
+
+      it("set V0 to value from V1", function(){
+        cpu.step();
+        expect(cpu.v[1]).toEqual(0xFF);
+        expect(cpu.v[0]).toEqual(cpu.v[1]);
+      });
+    });
+
+    describe("Executing 8XY1", function(){
+      let rom;
+
+      beforeEach(function(){
+        rom = [0x60, 0xF0, 0x61, 0x0F, 0x80, 0x11];
+        cpu.loadRom(rom);
+        cpu.step();
+        cpu.step();
+      });
+
+      it("set V0 to equal V0 OR V1", function(){
+        cpu.step();
+        expect(cpu.v[0]).toEqual(0xFF);
+      });
+    });
+
+    describe("Executing 8XY2", function(){
+      let rom;
+
+      beforeEach(function(){
+        rom = [0x60, 0xF0, 0x61, 0x0F, 0x80, 0x12];
+        cpu.loadRom(rom);
+        cpu.step();
+        cpu.step();
+      });
+
+      it("set V0 to equal V0 AND V1", function(){
+        cpu.step();
+        expect(cpu.v[0]).toEqual(0x0);
+      });
+    });
+
+    describe("Executing 8XY3", function(){
+      let rom;
+
+      beforeEach(function(){
+        rom = [0x60, 0xF0, 0x61, 0x0F, 0x80, 0x13];
+        cpu.loadRom(rom);
+        cpu.step();
+        cpu.step();
+      });
+
+      it("set V0 to equal V0 XOR V1", function(){
+        cpu.step();
+        expect(cpu.v[0]).toEqual(0x1);
+      });
     });
   });
 });

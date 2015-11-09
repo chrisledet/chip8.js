@@ -2,62 +2,21 @@
 <html>
   <head>
     <title>chip8.js</title>
-    <link rel="stylesheet" type="text/css" href="css/display.css">
+    <link rel="stylesheet" type="text/css" href="css/web.css">
   </head>
   <body>
-    <canvas id="display" width="640px" height="320px"></canvas>
-    <input type="file" id="rom-file" onchange="launchRom(this);"></input>
+    <div class='container'>
+      <canvas id="display" width="640px" height="320px"></canvas>
+      <div class="controls">
+        <input type="file" id="rom-file"></input>
+        <div class="button center --light" id="debug-toggle">Toggle Debug</div>
+        <div class="button center --red" id="stop">Stop</div>
+      </div>
+    </div>
   </body>
+  <script type="text/javascript" src="js/util.js"></script>
   <script type="text/javascript" src="js/rom_loader.js"></script>
-  <script type="text/javascript" src="js/cpu.js"></script>
   <script type="text/javascript" src="js/display.js"></script>
-  <script type="text/javascript">
-    var displayDomContainer = document.getElementById("display");
-    var cpu;
-
-    function launchRom(input) {
-      var input = document.getElementById("rom-file");
-
-      new RomLoader(input.files[0], function(romData){
-        cpu = new CPU(
-          new Display(displayDomContainer)
-        );
-
-        cpu.debugMode = true;
-        cpu.loadRom(romData);
-
-        this.setInterval(cpu.step.bind(cpu), 250);
-      });
-    }
-
-    function userInput(e) {
-      if (!cpu) { return; }
-
-      var key = e.keyCode - 48;
-      var input = key;
-
-      if (key > 9) {
-        if (key == 33) {
-          input = 0xA;
-        } else if (key == 39) {
-          input = 0xB;
-        } else if (key == 21) {
-          input = 0xC;
-        } else if (key == 34) {
-          input = 0xD;
-        } else if (key == 36) {
-          input = 0xE;
-        } else if (key == 41) {
-          input = 0xF;
-        } else {
-          return;
-        }
-      }
-
-      cpu.setInput(input);
-    }
-
-    document.getElementById("rom-file").onchange = launchRom;
-    document.onkeydown = userInput;
-  </script>
+  <script type="text/javascript" src="js/cpu.js"></script>
+  <script type="text/javascript" src="js/webUI.js"></script>
 </html>

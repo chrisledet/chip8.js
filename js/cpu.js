@@ -137,7 +137,12 @@ class CPU {
         break;
       case 0x7:
         // Adds NN to VX.
-        this.v[x] += nn;
+        let resultOf7XNN = this.v[x] + nn;
+        if (resultOf7XNN > 0xFF) {
+          this.v[x] = resultOf7XNN - 0x100;
+        } else {
+          this.v[x] = resultOf7XNN;
+        }
         break;
       case 0x8:
         switch (n) {
@@ -158,12 +163,11 @@ class CPU {
 
           case 0x3:
             // Sets VX to VX xor VY.
-            if (this.v[x] != this.v[y]) {
-              this.v[x] = 0x1;
-            } else {
+            if (this.v[x] == this.v[y]) {
               this.v[x] = 0x0;
+            } else {
+              this.v[x] = 0x1;
             }
-
             break;
 
           case 0x4:
@@ -236,59 +240,41 @@ class CPU {
         break;
       case 0xC:
         // Sets VX to the result of a bitwise and operation on a random number and NN.
-        this.v[x] = rnd() & nn;
+        this.v[x] = Util.rnd() & nn;
         break;
       case 0xD:
         // Draw a sprite at position VX, VY with N bytes of sprite data starting at the address stored in I
         // Set VF to 01 if any set pixels are changed to unset, and 00 otherwise
         let position = { x: this.v[x], y: this.v[y] };
-        let currentDisplayStates = this.display.current();;
-        let displayStates = this.generatePixelStates();
+        let newPixelStates = this.display.current();
 
-        let byteToDisplay = function(b) {
-          return [
-            (b & 0x80) == 0x80,
-            (b & 0x40) == 0x40,
-            (b & 0x20) == 0x20,
-            (b & 0x10) == 0x10,
-            (b & 0x08) == 0x08,
-            (b & 0x04) == 0x04,
-            (b & 0x02) == 0x02,
-            (b & 0x01) == 0x01,
-          ];
-        }
+        // N bytes of sprite data starting at the address stored in I
+        for (var spriteIndex = 0; spriteIndex < n; spriteIndex++) {
+          // what sprite are we looking for
+          let sprite = this.memory[this.i + spriteIndex];
+          // convert sprite opscode into switches
+          let spritePixelStates = Util.byteToSwitch(sprite);
 
-        this.v[0xF] = 0x0;
+          // for the width of 8 pixels
+          for (var spriteDrawingIndex = 0; spriteDrawingIndex < 8; spriteDrawingIndex++) {
+            let drawPosition = {
+              x: (position.x + spriteDrawingIndex),
+              y: (position.y + spriteIndex)
+            };
 
-        for (var a = 0; a < n; a++) {
-          let sprite = this.memory[this.i + a];
-          let pixels = byteToDisplay(sprite);
-
-          for (var b = 0; b < 8; b++) {
-            let currentPosition = { x: (position.x + b), y: (position.y + a) };
-
-            if (currentPosition.x > 640) {
-              currentPosition.x -= 640;
+            if (drawPosition.x > 63) {
+              drawPosition.x -= 64;
             }
 
-            if (currentPosition.y > 320) {
-              currentPosition.y -= 320;
+            if (drawPosition.y > 31) {
+              drawPosition.y -= 32;
             }
 
-            let current = displayStates[currentPosition.x][currentPosition.y];
-            let pixel = currentDisplayStates[currentPosition.x][currentPosition.y];
-
-            if (current != pixel) {
-              displayStates[currentPosition.x][currentPosition.y] = true;
-            } else {
-              this.v[0xF] = 1;
-            }
+            newPixelStates[drawPosition.x][drawPosition.y] = spritePixelStates[spriteDrawingIndex];
           }
         }
 
-        console.log("Drawing...", displayStates);
-        this.display.draw(displayStates);
-
+        this.display.draw(newPixelStates);
         break;
       case 0xE:
         switch (tail) {
@@ -360,16 +346,6 @@ class CPU {
         }
         break;
     }
-
-    // console.log({
-    //   pc: this.pc.toString(16),
-    //   head: head.toString(16),
-    //   tail: tail.toString(16),
-    //   x: x.toString(16),
-    //   y: y.toString(16),
-    //   nnn: nnn.toString(16),
-    //   nn: nn.toString(16),
-    // });
   }
 
   /* private */
@@ -404,25 +380,6 @@ class CPU {
     } else {
       this.pc += 2;
     }
-  }
-
-  /* private */
-  rnd() {
-    return Math.floor(Math.random() * (0xFF - 0x0)) + 0x0;
-  }
-
-  generatePixelStates() {
-    let states = [];
-
-    for (let x = 0; x < 640; x++) {
-      states[x] = [];
-
-      for (let y = 0; y < 320; y++) {
-        states[x][y] = false;
-      }
-    }
-
-    return states;
   }
 }
 

@@ -1,0 +1,74 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+body {
+  background: #262626;
+  font-family: "Open Sans", sans-serif;
+}
+
+#display {
+  width: 640px;
+  height: 320px;
+  display: block;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+}
+
+/*
+  Credit Notice
+  Button styles were originally written as "Simple Button Styles" by Simon Busborg: http://codepen.io/simonbusborg/pen/cyxad
+*/
+
+.container {
+  width: 700px;
+  margin: 0px auto;
+}
+
+.controls {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 10px auto;
+  width: 640px;
+}
+
+.button {
+  border: 0 none;
+  border-radius: 36px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  padding: 12px 45px;
+  text-transform: none;
+  -webkit-transition: all 100ms ease-in-out;
+          transition: all 100ms ease-in-out;
+  width: auto;
+  text-align: center;
+}
+
+.button:hover {
+  opacity: .7;
+}
+
+.button.--light {
+  background: #ecf0f1;
+  color: #34495e;
+}
+
+.button.--red {
+  background: #e74c3c;
+  color: #FFFFFF;
+}
+
+.button.--green {
+  background: #4ac15a;
+  color: #FFFFFF;
+}
