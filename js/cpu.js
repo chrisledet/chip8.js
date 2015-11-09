@@ -19,8 +19,14 @@ class CPU {
     this.debugMode = false;
   }
 
+  debug() {
+    if (this.debugMode) {
+      console.log(arguments);
+    }
+  }
+
   loadRom(data) {
-    console.log("Loading ROM");
+    this.debug("Loading ROM");
 
     let font = [
       0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
@@ -76,67 +82,58 @@ class CPU {
     let ops = Math.floor(head / 0x10);
     let x = head & 0xF;
     let y = Math.floor(tail / 0x10);
-    let nnn = parseInt(x + "" + tail, 16);
+    let nnn = (x * 0x100) + tail;
     let nn = tail;
     let n = tail & 0xF;
-    let debug = function() {
-      if (self.debugMode) {
-        console.log(arguments);
-      }
-    };
 
-    debug("Executing 0x" + head.toString(16), "0x" + tail.toString(16));
+    this.debug("Executing 0x" + head.toString(16), "0x" + tail.toString(16));
 
     switch (ops) {
       case 0x0:
         switch(tail) {
           case 0xE0:
-            debug("EXEC: Display cleared");
+            this.debug("EXEC: Display cleared");
             this.display.clear();
             break;
           case 0xEE:
             // return from subroutine
-            debug("EXEC: return from subroutine");
+            this.debug("EXEC: return from subroutine");
             this.pc = this.stack.pop();
             break;
         }
         break;
       case 0x1:
         // Jumps to address NNN.
-        debug("EXEC: JMP to 0x", nnn.toString(16).toUpperCase());
         this.pc = nnn - 2; // -2 because pc is incremented after each
         break;
       case 0x2:
-        // Calls subroutine at NNN.
-        debug("EXEC: JMP to SUB 0x", nnn.toString(16).toUpperCase());
+        this.debug("Call subroutine at",  nnn);
         this.stack.push(this.pc);
         this.pc = nnn - 2; // -2 because pc is incremented after each
         break;
       case 0x3:
         // Skips the next instruction if VX equals NN.
-        debug("EXEC: SKIP IF VX == NN");
+        this.debug("EXEC: SKIP IF VX == NN");
         if (this.v[x] == nn) {
           this.pc += 2;
         }
         break;
       case 0x4:
         // Skips the next instruction if VX doesn't equal NN.
-        debug("EXEC: SKIP IF VX != NN");
+        this.debug("EXEC: SKIP IF VX != NN");
         if (this.v[x] != nn) {
           this.pc += 2;
         }
         break;
       case 0x5:
         // Skips the next instruction if VX equals VY.
-        debug("EXEC: SKIP IF VX != VY");
         if (this.v[x] == this.v[y]) {
           this.pc += 2;
         }
         break;
       case 0x6:
         // Sets VX to NN.
-        debug("EXEC: VX = NN", x, nn);
-        this.v[x] == nn;
+        this.v[x] = nn;
         break;
       case 0x7:
         // Adds NN to VX.
@@ -246,7 +243,7 @@ class CPU {
         // Set VF to 01 if any set pixels are changed to unset, and 00 otherwise
         let position = { x: this.v[x], y: this.v[y] };
         let currentDisplayStates = this.display.current();;
-        let displayStates = generatePixelStates();
+        let displayStates = this.generatePixelStates();
 
         let byteToDisplay = function(b) {
           return [
@@ -282,14 +279,14 @@ class CPU {
             let pixel = currentDisplayStates[currentPosition.x][currentPosition.y];
 
             if (current != pixel) {
-              currentDisplayStates[currentPosition.x][currentPosition.y] = true;
+              displayStates[currentPosition.x][currentPosition.y] = true;
             } else {
               this.v[0xF] = 1;
             }
           }
         }
 
-        console.log("Drawing...");
+        console.log("Drawing...", displayStates);
         this.display.draw(displayStates);
 
         break;
@@ -319,6 +316,7 @@ class CPU {
             // A key press is awaited, and then stored in VX.
             if (this.awaitInput) {
               this.v[x] = this.currentInput;
+              this.awaitInput = false;
             } else {
               this.awaitInput = true;
             }
@@ -384,9 +382,7 @@ class CPU {
       this.memory[x] = 0x0;
     }
 
-    for (let x = 0; x < 0xF; x++) {
-      this.stack[x] = 0x0;
-    }
+    this.display.clear();
 
     this.pc = 0x200;
     this.isReady = true;
@@ -395,7 +391,7 @@ class CPU {
   /* private */
   copyIntoMemory(startAddress, data) {
     for (let x = 0; x < data.length; x++) {
-      console.log("Loading ", data[x].toString(16), " in address " + (startAddress + x).toString(16));
+      this.debug("Loading ", data[x].toString(16), " in address " + (startAddress + x).toString(16));
       this.memory[startAddress + x] = data[x];
     }
   }
@@ -403,6 +399,7 @@ class CPU {
   /* private */
   tick() {
     if (this.pc >= 0xFFE) {
+      this.debug("Finished...");
       this.pc = 0;
     } else {
       this.pc += 2;

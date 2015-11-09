@@ -1,21 +1,22 @@
 {
   "name": "chip8.js",
   "version": "0.0.1",
-  "description": "CHIP-8 interpreter",
+  "description": "CHIP-8 Interpreter",
   "main": "main.js",
   "scripts": {
     "start": "electron main.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "spec": "jasmine-node spec"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chrisledet/chip8.js.git"
   },
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial"
+    "emulator",
+    "chip8",
+    "machine",
+    "asm"
   ],
   "author": "Chris Ledet",
   "license": "MIT",
@@ -24,6 +25,7 @@
   },
   "homepage": "https://github.com/chrisledet/chip8.js#readme",
   "devDependencies": {
-    "electron-prebuilt": "^0.34.0"
+    "electron-prebuilt": "^0.34.0",
+    "jasmine-node": "1.14.5"
   }
 }

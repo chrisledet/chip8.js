@@ -39,7 +39,7 @@ class Display {
       states[x] = [];
 
       for (let y = 0; y < this.resolution.height; y++) {
-        states[x][y].push(false);
+        states[x][y] = false;
       }
     }
 
