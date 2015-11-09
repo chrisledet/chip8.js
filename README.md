@@ -1,6 +1,6 @@
 # CHIP-8
 
-CHIP-8 VM in JavaScript
+CHIP-8 VM built with [Electron](http://electron.atom.io/).
 
 ![screenshot](https://raw.githubusercontent.com/chrisledet/chip8.js/master/Screenshot.png)
 
