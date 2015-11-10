@@ -4,15 +4,8 @@ class Display {
   constructor(displayDomContainer) {
     let pixelWidth = displayDomContainer.width / 64;
     let pixelHeight = displayDomContainer.height / 32;
-    let states = [];
-    for (var x = 0; x < 64; x++) {
-      states[x] = [];
-      for (var y = 0; y < 32; y++) {
-        states[x][y] = false;
-      }
-    }
 
-    this.states = states;
+    this.states = this.clearStates();
     this.resolution = { width: 64, height: 32 };
     this.pixel = { width: pixelWidth, height: pixelHeight };
     this.context = displayDomContainer.getContext("2d");
@@ -40,17 +33,21 @@ class Display {
   }
 
   clear() {
+    let states = this.clearStates();
+    this.draw(states);
+  }
+
+  clearStates() {
     let states = [];
 
-    for (let x = 0; x < this.resolution.width; x++) {
+    for (var x = 0; x < 64; x++) {
       states[x] = [];
-
-      for (let y = 0; y < this.resolution.height; y++) {
+      for (var y = 0; y < 32; y++) {
         states[x][y] = false;
       }
     }
 
-    this.draw(states);
+    return states;
   }
 }
 

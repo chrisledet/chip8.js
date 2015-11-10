@@ -171,7 +171,6 @@ class CPU {
             break;
 
           case 0x4:
-            // Adds VY to VX. VF is set to 1 when there's a carry, and to 0 when there isn't.
             var result = this.v[x] + this.v[y];
 
             if (result > 0xFF) {
@@ -184,20 +183,18 @@ class CPU {
 
             break;
           case 0x5:
-            // VY is subtracted from VX. VF is set to 0 when there's a borrow, and 1 when there isn't.
-            if (this.v[y] > this.v[x]) {
-              this.v[x] = -(this.v[x] - this.v[y]);
+            var result = this.v[x] - this.v[y];
+
+            if (result < 0x0) {
+              this.v[x] = result + 0x100;
               this.v[0xF] = 0x1;
             } else {
-              this.v[x] -= this.v[y];
+              this.v[x] = result;
               this.v[0xF] = 0x0;
             }
 
             break;
-
           case 0x6:
-            // Shifts VX right by one.
-            // VF is set to the value of the least significant bit of VX before the shift.
             this.v[0xF] = this.v[x] & 0xF;
             this.v[x] = this.v[x] >> 1;
             break;
@@ -208,19 +205,25 @@ class CPU {
             var result = this.v[y] - this.v[x];
 
             if (result < 0) {
-              this.v[x] = -(result);
+              this.v[x] = result + 0x100;
               this.v[0xF] = 0x0;
             } else {
               this.v[x] = result;
               this.v[0xF] = 0x1;
             }
-            break;
 
+            break;
           case 0xE:
-            // Shifts VX left by one.
-            // VF is set to the value of the most significant bit of VX before the shift.
-            this.v[0xF] = this.v[x] / 10;
-            this.v[x] = this.v[x] << 1;
+            var result = this.v[x] << 1;
+
+            this.v[0xF] = Math.floor(this.v[x] / 0x10);
+
+            if (result > 0xFF) {
+              this.v[x] = result - 0x100;
+            } else {
+              this.v[x] = result;
+            }
+
             break;
         }
         break;
@@ -255,6 +258,8 @@ class CPU {
           // convert sprite opscode into switches
           let spritePixelStates = Util.byteToSwitch(sprite);
 
+          this.v[0xF] = 0;
+
           // for the width of 8 pixels
           for (var spriteDrawingIndex = 0; spriteDrawingIndex < 8; spriteDrawingIndex++) {
             let drawPosition = {
@@ -270,7 +275,16 @@ class CPU {
               drawPosition.y -= 32;
             }
 
-            newPixelStates[drawPosition.x][drawPosition.y] = spritePixelStates[spriteDrawingIndex];
+            if (spritePixelStates[spriteDrawingIndex]) {
+              let result = true;
+
+              if (newPixelStates[drawPosition.x][drawPosition.y] == spritePixelStates[spriteDrawingIndex]) {
+                result = false;
+                this.v[0xF] = 0x1;
+              }
+
+              newPixelStates[drawPosition.x][drawPosition.y] = result;
+            }
           }
         }
 
@@ -299,13 +313,10 @@ class CPU {
             this.v[x] = this.delayTimer;
             break;
           case 0x0A:
-            // A key press is awaited, and then stored in VX.
             if (this.awaitInput) {
               this.v[x] = this.currentInput;
-              this.awaitInput = false;
-            } else {
-              this.awaitInput = true;
             }
+            this.awaitInput = true;
             break;
           case 0x15:
             // Set the delay timer to the value of register VX

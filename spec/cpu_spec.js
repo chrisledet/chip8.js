@@ -253,5 +253,129 @@ describe("CPU", function(){
         expect(cpu.v[0]).toEqual(0x1);
       });
     });
+
+    describe("8XY4", function(){
+      let rom;
+
+      beforeEach(function(){
+        rom = [0x60, 0xF0, 0x61, 0x0F, 0x80, 0x14];
+        cpu.loadRom(rom);
+        cpu.step();
+        cpu.step();
+      });
+
+      it("adds VY to VX", function(){
+        cpu.step();
+        expect(cpu.v[0]).toEqual(0xFF);
+      });
+
+      it("sets VF to 0", function(){
+        cpu.step();
+        expect(cpu.v[0xF]).toEqual(0x0);
+      });
+
+      describe("when there's a carry", function(){
+        let rom;
+
+        beforeEach(function(){
+          rom = [0x60, 0xFF, 0x61, 0x02, 0x80, 0x14];
+          cpu.loadRom(rom);
+          cpu.step();
+          cpu.step();
+        });
+
+        it("adds VY to VX", function(){
+          cpu.step();
+          expect(cpu.v[0]).toEqual(0x1);
+        });
+
+        it("set VF to 1", function(){
+          cpu.step();
+          expect(cpu.v[0xF]).toEqual(0x1);
+        });
+      });
+    });
+
+    describe("8XY5", function(){
+      let rom;
+
+      beforeEach(function(){
+        rom = [0x60, 0xFF, 0x61, 0x0F, 0x80, 0x15];
+        cpu.loadRom(rom);
+        cpu.step();
+        cpu.step();
+      });
+
+      it("subtracts VY from VX", function(){
+        cpu.step();
+        expect(cpu.v[0]).toEqual(0xF0);
+      });
+
+      it("sets VF to 0", function(){
+        cpu.step();
+        expect(cpu.v[0xF]).toEqual(0x0);
+      });
+
+      describe("when there's a carry", function(){
+        let rom;
+
+        beforeEach(function(){
+          rom = [0x60, 0x01, 0x61, 0x02, 0x80, 0x15];
+          cpu.loadRom(rom);
+          cpu.step();
+          cpu.step();
+        });
+
+        it("subtracts VY from VX", function(){
+          cpu.step();
+          expect(cpu.v[0]).toEqual(0xFF);
+        });
+
+        it("set VF to 1", function(){
+          cpu.step();
+          expect(cpu.v[0xF]).toEqual(0x1);
+        });
+      });
+    });
+
+    describe("8XY6", function(){
+      let rom;
+
+      beforeEach(function(){
+        rom = [0x60, 0xFF, 0x80, 0x06];
+        cpu.loadRom(rom);
+        cpu.step();
+      });
+
+      it("shifts VX right by one", function(){
+        cpu.step();
+        expect(cpu.v[0]).toEqual(0x7F);
+      });
+
+      it("sets VF to the least significant bit of VX", function(){
+        cpu.step();
+        expect(cpu.v[0xF]).toEqual(0xF);
+      });
+    });
+
+    describe("8XYE", function(){
+      let rom;
+
+      beforeEach(function(){
+        rom = [0x60, 0xFF, 0x80, 0x0E];
+        cpu.loadRom(rom);
+        cpu.step();
+      });
+
+      it("shifts VX left by one", function(){
+        cpu.step();
+        expect(cpu.v[0]).toEqual(0xFE);
+      });
+
+      it("sets VF to the most significant bit of VX", function(){
+        cpu.step();
+        expect(cpu.v[0xF]).toEqual(0xF);
+      });
+    });
   });
 });

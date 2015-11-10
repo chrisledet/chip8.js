@@ -27,7 +27,7 @@ romFileUpload.onchange = function() {
 
     cpu.loadRom(romData);
 
-    pid = window.setInterval(cpu.step.bind(cpu), 10);
+    pid = window.setInterval(cpu.step.bind(cpu), 15);
   });
 };
 
