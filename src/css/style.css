@@ -1,6 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
 body {
+  margin: 0 auto;
+  width: 700px;
   font-family: "Open Sans", sans-serif;
 }
 
@@ -15,6 +17,12 @@ body {
   margin-top: 3%;
 }
 
+.subtitle {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: normal;
+}
+
 /*
   Credit Notice
   Button styles were originally written as "Simple Button Styles" by Simon Busborg: http://codepen.io/simonbusborg/pen/cyxad
@@ -22,7 +30,7 @@ body {
 
 .container {
   width: 700px;
-  margin: 0px auto;
+  margin: 0 auto;
   background: #262626;
 }
 

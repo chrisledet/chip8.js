@@ -6,8 +6,6 @@ let CPU = require('./cpu');
 let Display = require('./display');
 let RomLoader = require('./rom_loader');
 
-debugger;
-
 var romFileUpload = document.getElementById("rom-file");
 var debugToggle = document.getElementById("debug-toggle");
 var resumeSwitch = document.getElementById("resume");
