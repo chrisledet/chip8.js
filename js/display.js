@@ -51,4 +51,8 @@ class Display {
   }
 }
 
-module.exports = Display;
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = Display;
+} else {
+  window.Display = Display;
+}

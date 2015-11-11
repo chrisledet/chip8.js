@@ -20,3 +20,9 @@ class Util {
     return Math.floor(Math.random() * (0xFF - 0x0)) + 0x0;
   }
 }
+
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = Util;
+} else {
+  window.Display = Util;
+}
