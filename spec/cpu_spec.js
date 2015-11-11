@@ -79,7 +79,6 @@ describe("CPU", function(){
       });
     });
 
-    // 4XNN  Skips the next instruction if VX doesn't equal NN.
     describe("Executing 4XNN", function(){
       describe("when V1 is not 0x22", function(){
         let rom;
@@ -112,7 +111,6 @@ describe("CPU", function(){
       });
     });
 
-    // 5XY0  Skips the next instruction if VX equals VY.
     describe("Executing 5XY0", function(){
       describe("when V0 is 0xFF and V1 is 0xFF", function(){
         let rom;
@@ -254,7 +252,7 @@ describe("CPU", function(){
       });
     });
 
-    describe("8XY4", function(){
+    describe("Executing 8XY4", function(){
       let rom;
 
       beforeEach(function(){
@@ -296,7 +294,7 @@ describe("CPU", function(){
       });
     });
 
-    describe("8XY5", function(){
+    describe("Executing 8XY5", function(){
       let rom;
 
       beforeEach(function(){
@@ -338,7 +336,7 @@ describe("CPU", function(){
       });
     });
 
-    describe("8XY6", function(){
+    describe("Executing 8XY6", function(){
       let rom;
 
       beforeEach(function(){
@@ -358,7 +356,23 @@ describe("CPU", function(){
       });
     });
 
-    describe("8XYE", function(){
+    describe("Executing 8XY7", function(){
+      let rom;
+
+      beforeEach(function(){
+        rom = [0x60, 0x10, 0x61, 0x20, 0x80, 0x17];
+        cpu.loadRom(rom);
+        cpu.step();
+        cpu.step();
+      });
+
+      it("sets VX to VY - VX", function(){
+        cpu.step();
+        expect(cpu.v[0]).toEqual(0x10);
+      });
+    });
+
+    describe("Executing 8XYE", function(){
       let rom;
 
       beforeEach(function(){
@@ -375,6 +389,51 @@ describe("CPU", function(){
       it("sets VF to the most significant bit of VX", function(){
         cpu.step();
         expect(cpu.v[0xF]).toEqual(0xF);
+      });
+    });
+
+    describe("Executing 9XY0", function(){
+      let rom;
+
+      beforeEach(function(){
+        rom = [0x60, 0x01, 0x90, 0x10];
+        cpu.loadRom(rom);
+        cpu.step();
+      });
+
+      it("skips if VX != VY", function(){
+        expect(cpu.pc).toEqual(0x202);
+        cpu.step();
+        expect(cpu.pc).toEqual(0x206);
+      });
+    });
+
+    describe("Executing ANNN", function(){
+      let rom;
+
+      beforeEach(function(){
+        rom = [0xA1, 0x23];
+        cpu.loadRom(rom);
+      });
+
+      it("sets I to NNN.", function(){
+        cpu.step();
+        expect(cpu.i).toEqual(0x123);
+      });
+    });
+
+    describe("Executing BNNN", function(){
+      let rom;
+
+      beforeEach(function(){
+        rom = [0x60, 0x25, 0xB3, 0x01];
+        cpu.loadRom(rom);
+        cpu.step();
+      });
+
+      it("sets pc to NNN + V0", function(){
+        cpu.step();
+        expect(cpu.pc).toEqual(0x326);
       });
     });
   });
