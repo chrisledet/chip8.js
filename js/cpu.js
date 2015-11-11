@@ -17,6 +17,7 @@ class CPU {
     this.currentInput = 0x0;
     this.isReady = false;
     this.debugMode = false;
+    this.stepCount = 0;
   }
 
   debug() {
@@ -384,6 +385,8 @@ class CPU {
     } else {
       this.pc += 2;
     }
+
+    this.stepCount++;
   }
 }
 
