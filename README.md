@@ -1,4 +1,4 @@
-# chip8.js
+# chip8.js [![Build Status](https://travis-ci.org/chrisledet/chip8.js.svg)](https://travis-ci.org/chrisledet/chip8.js)
 
 A CHIP-8 VM built written in JavaScript
 
