@@ -1,7 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
 body {
-  background: #262626;
   font-family: "Open Sans", sans-serif;
 }
 
@@ -24,6 +23,7 @@ body {
 .container {
   width: 700px;
   margin: 0px auto;
+  background: #262626;
 }
 
 .controls {
@@ -35,8 +35,9 @@ body {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin: 10px auto;
-  width: 640px;
+  margin: 5px auto;
+  width: 700px;
+  background: #fff;
 }
 
 .button {

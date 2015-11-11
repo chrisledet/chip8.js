@@ -24,5 +24,5 @@ class Util {
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
   module.exports = Util;
 } else {
-  window.Display = Util;
+  window.Util = Util;
 }

@@ -26,5 +26,5 @@ class RomLoader {
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
   module.exports = RomLoader;
 } else {
-  window.Display = RomLoader;
+  window.RomLoader = RomLoader;
 }

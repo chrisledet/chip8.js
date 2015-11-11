@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>chip8.js</title>
+    {% for (var chunk in o.htmlWebpackPlugin.files.css) { %}
+    <link rel="stylesheet" type="text/css" href="{%= o.htmlWebpackPlugin.files.css[chunk] %}">
+    {% } %}
+  </head>
+  <body>
+    <div class='container'>
+      <canvas id="display" width="640px" height="320px"></canvas>
+    </div>
+    <div class="controls">
+      <input type="file" id="rom-file"></input>
+      <div class="button center --light" id="debug-toggle">Toggle Debug</div>
+      <div class="button center --red" id="stop">Stop</div>
+      <div class="button center --green" id="resume">Resume</div>
+    </div>
+  </body>
+  {% for (var chunk in o.htmlWebpackPlugin.files.js) { %}
+  <script src="{%= o.htmlWebpackPlugin.files.js[chunk] %}"></script>
+  {% } %}
+</html>

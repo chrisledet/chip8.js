@@ -1,7 +1,16 @@
 "use strict";
 
+require("../css/style.css");
+
+let CPU = require('./cpu');
+let Display = require('./display');
+let RomLoader = require('./rom_loader');
+
+debugger;
+
 var romFileUpload = document.getElementById("rom-file");
 var debugToggle = document.getElementById("debug-toggle");
+var resumeSwitch = document.getElementById("resume");
 var stopSwitch = document.getElementById("stop");
 var displayDomContainer = document.getElementById("display");
 var cpu;
@@ -17,6 +26,14 @@ stopSwitch.onclick = function() {
   if (!pid) { return; }
 
   window.clearInterval(pid);
+
+  pid = null;
+};
+
+resumeSwitch.onclick = function() {
+  if (pid) { return; }
+
+  pid = window.setInterval(cpu.step.bind(cpu), 16);
 };
 
 romFileUpload.onchange = function() {

@@ -1,5 +1,7 @@
 "use strict";
 
+let Util = require('./util');
+
 class CPU {
   constructor(display) {
     this.v = [];
