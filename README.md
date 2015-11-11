@@ -1,14 +1,14 @@
 # chip8.js
 
-A CHIP-8 VM built with [Electron](http://electron.atom.io/).
+A CHIP-8 VM built written in JavaScript
 
 ![screenshot](https://raw.githubusercontent.com/chrisledet/chip8.js/master/Screenshot.png)
 
-## Install
+## Build
 
-Node 4.x or 5.0 is required.
+We use [webpack](https://webpack.github.io/) to build the project in `src/` and save them to `dist/`.
 
-Download source:
+Download repository:
 ```shell
 git clone git@github.com:chrisledet/chip8.js.git
 ```
@@ -19,9 +19,14 @@ cd chip8.js
 npm install
 ```
 
-Launch the app:
+Build the proejct:
 ```shell
-npm start
+npm run build
+```
+
+Open the project:
+```shell
+open dist/index.html
 ```
 
 ## License
