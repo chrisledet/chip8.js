@@ -103,7 +103,6 @@ class CPU {
         }
         break;
       case 0x1:
-        // Jumps to address NNN.
         this.pc = nnn - 2; // -2 because pc is incremented after each
         break;
       case 0x2:
@@ -112,31 +111,29 @@ class CPU {
         this.pc = nnn - 2; // -2 because pc is incremented after each
         break;
       case 0x3:
-        // Skips the next instruction if VX equals NN.
-        this.debug("EXEC: SKIP IF VX == NN");
+        this.debug("EXEC: SKIP IF VX == NN", nn);
         if (this.v[x] == nn) {
           this.pc += 2;
         }
         break;
       case 0x4:
-        // Skips the next instruction if VX doesn't equal NN.
-        this.debug("EXEC: SKIP IF VX != NN");
+        this.debug("EXEC: SKIP IF VX != NN", x, nn);
         if (this.v[x] != nn) {
           this.pc += 2;
         }
         break;
       case 0x5:
-        // Skips the next instruction if VX equals VY.
+        this.debug("EXEC: SKIP IF VX == VY", x, y);
         if (this.v[x] == this.v[y]) {
           this.pc += 2;
         }
         break;
       case 0x6:
-        // Sets VX to NN.
+        this.debug("EXEC: SET VX TO NN", x, nn);
         this.v[x] = nn;
         break;
       case 0x7:
-        // Adds NN to VX.
+        this.debug("EXEC: ADD NN to VX ", nn, x);
         let resultOf7XNN = this.v[x] + nn;
         if (resultOf7XNN > 0xFF) {
           this.v[x] = resultOf7XNN - 0x100;
@@ -200,8 +197,6 @@ class CPU {
             break;
 
           case 0x7:
-            // Sets VX to VY minus VX.
-            // VF is set to 0 when there's a borrow, and 1 when there isn't.
             var result = this.v[y] - this.v[x];
 
             if (result < 0) {
@@ -228,13 +223,11 @@ class CPU {
         }
         break;
       case 0x9:
-        // Skips the next instruction if VX doesn't equal VY.
         if (this.v[x] != this.v[y]) {
           this.pc += 2;
         }
         break;
       case 0xA:
-        // Sets I to the address NNN.
         this.i = nnn;
         break;
       case 0xB:
