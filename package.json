@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "build": "rm -rf dist/* && webpack",
-    "test": "jasmine-node src/spec"
+    "test": "jasmine-node src/spec",
+    "deploy": "surge -p dist -d chip8js.surge.sh"
   },
   "repository": {
     "type": "git",
