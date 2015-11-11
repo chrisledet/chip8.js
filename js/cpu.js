@@ -64,11 +64,11 @@ class CPU {
     this.cycle();
 
     if (this.delayTimer > 0) {
-      this.delayTimer -= 0
+      this.delayTimer -= 1;
     }
 
     if (this.soundTimer > 0) {
-      this.soundTimer -= 0
+      this.soundTimer -= 1;
     }
 
     this.tick();
