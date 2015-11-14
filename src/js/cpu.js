@@ -9,7 +9,6 @@ class CPU {
     this.memory = [];
     this.stack = [];
     this.pixelState = [];
-    this.stackPointer = 0;
     this.delayTimer = 0;
     this.soundTimer = 0;
     this.pc = 0;
@@ -19,7 +18,6 @@ class CPU {
     this.currentInput = 0x0;
     this.isReady = false;
     this.debugMode = false;
-    this.stepCount = 0;
   }
 
   debug() {
@@ -387,8 +385,6 @@ class CPU {
     } else {
       this.pc += 2;
     }
-
-    this.stepCount++;
   }
 }
 
