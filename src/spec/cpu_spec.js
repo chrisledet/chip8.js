@@ -435,4 +435,19 @@ describe("CPU", function(){
       expect(cpu.pc).toEqual(0x326);
     });
   });
+
+  describe("Executing FX18", function(){
+    let rom;
+
+    beforeEach(function(){
+      rom = [0x60, 0x25, 0xF0, 0x18];
+      cpu.loadRom(rom);
+      cpu.step();
+    });
+
+    it("sets sound timer to value from V0", function(){
+      cpu.step();
+      expect(cpu.soundTimer).toEqual(0x24);
+    });
+  });
 });
