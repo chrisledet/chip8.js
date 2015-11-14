@@ -16,7 +16,6 @@ class CPU {
 
     this.display = display;
     this.currentInput = 0x0;
-    this.isReady = false;
     this.debugMode = false;
   }
 
@@ -59,7 +58,6 @@ class CPU {
   }
 
   step() {
-    if (!this.isReady) { return; }
     if (this.awaitInput) { return; }
 
     this.cycle();
@@ -366,7 +364,6 @@ class CPU {
     this.display.clear();
 
     this.pc = 0x200;
-    this.isReady = true;
   }
 
   /* private */
