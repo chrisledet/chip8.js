@@ -5,12 +5,14 @@ require("../css/style.css");
 let CPU = require('./cpu');
 let Display = require('./display');
 let RomLoader = require('./rom_loader');
+var audioSource = require('url!./sounds/beep.wav');
 
 var romFileUpload = document.getElementById("rom-file");
 var debugToggle = document.getElementById("debug-toggle");
 var resumeSwitch = document.getElementById("resume");
 var stopSwitch = document.getElementById("stop");
 var displayDomContainer = document.getElementById("display");
+
 var cpu;
 var pid;
 
@@ -36,10 +38,10 @@ resumeSwitch.onclick = function() {
 
 romFileUpload.onchange = function() {
   new RomLoader(this.files[0], function(romData){
-    cpu = new CPU(
-      new Display(displayDomContainer)
-    );
+    let display = new Display(displayDomContainer);
+    let audio = new Audio(audioSource);
 
+    cpu = new CPU(display, audio);
     cpu.loadRom(romData);
 
     pid = window.setInterval(cpu.step.bind(cpu), 16);
