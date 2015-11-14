@@ -10,7 +10,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, '/dist/'),
-    filename: '[name].js'
+    filename: 'js/[name].js'
   },
   module: {
     loaders: [
@@ -27,7 +27,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('style.css'),
+    new ExtractTextPlugin('css/style.css'),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     })

@@ -3,7 +3,8 @@
 let Util = require('./util');
 
 class CPU {
-  constructor(display) {
+  constructor(display, audio) {
+    // cpu state
     this.v = [];
     this.i = 0;
     this.memory = [];
@@ -12,9 +13,11 @@ class CPU {
     this.delayTimer = 0;
     this.soundTimer = 0;
     this.pc = 0;
-    this.awaitInput = false;
 
+    // emulator state
+    this.audio = audio;
     this.display = display;
+    this.awaitInput = false;
     this.currentInput = 0x0;
     this.debugMode = false;
   }
@@ -68,6 +71,10 @@ class CPU {
 
     if (this.soundTimer > 0) {
       this.soundTimer -= 1;
+
+      if (this.soundTimer == 0) {
+        this.audio.play();
+      }
     }
 
     this.tick();
