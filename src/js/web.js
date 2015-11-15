@@ -1,7 +1,5 @@
 "use strict";
 
-require("../css/style.css");
-
 let CPU = require('./cpu');
 let Display = require('./display');
 let RomLoader = require('./rom_loader');

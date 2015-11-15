@@ -6,18 +6,18 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: [
-    path.join(__dirname, 'src/js/main.js'),
+    path.join(__dirname, 'main.js'),
   ],
   output: {
     path: path.join(__dirname, '/dist/'),
-    filename: 'js/[name].js'
+    filename: 'assets/[hash].bundle.js'
   },
   module: {
     loaders: [
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
-        loader: 'babel?presets[]=es2015'
+        loader: 'babel'
       },
       {
         test: /\.css$/,
@@ -27,7 +27,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('css/style.css'),
+    new ExtractTextPlugin('assets/[hash].bundle.css'),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     })
