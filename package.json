@@ -4,7 +4,7 @@
   "description": "CHIP-8 Interpreter",
   "main": "main.js",
   "scripts": {
-    "build": "rm -rf dist/* && webpack && mkdir -p dist/sounds && cp src/sounds/beep.wav dist/sounds/",
+    "build": "rm -rf dist/* && webpack",
     "test": "jasmine-node src/spec",
     "deploy": "surge -p dist -d chip8js.surge.sh"
   },
@@ -34,6 +34,7 @@
     "babel-preset-es2015": "^6.1.2",
     "css-loader": "^0.22.0",
     "extract-text-webpack-plugin": "^0.9.1",
+    "file-loader": "^0.8.4",
     "html-webpack-plugin": "^1.6.2",
     "jasmine-node": "1.14.5",
     "style-loader": "^0.13.0",

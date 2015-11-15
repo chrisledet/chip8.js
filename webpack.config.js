@@ -23,6 +23,11 @@ module.exports = {
         test: /\.css$/,
         exclude: /node_modules/,
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+      },
+      {
+        test: /\.wav$/,
+        exclude: /node_modules/,
+        loader: 'file-loader?name=assets/[hash].bundle.[ext]'
       }
     ]
   },

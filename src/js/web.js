@@ -3,7 +3,7 @@
 let CPU = require('./cpu');
 let Display = require('./display');
 let RomLoader = require('./rom_loader');
-let audioSource = 'sounds/beep.wav';
+let audioSource = require('../sounds/beep.wav');
 
 var romFileUpload = document.getElementById("rom-file");
 var debugToggle = document.getElementById("debug-toggle");
