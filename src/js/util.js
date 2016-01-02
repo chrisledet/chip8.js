@@ -10,7 +10,7 @@ class Util {
       (b & 0x08) == 0x08,
       (b & 0x04) == 0x04,
       (b & 0x02) == 0x02,
-      (b & 0x01) == 0x01,
+      (b & 0x01) == 0x01
     ];
 
     return s;
@@ -21,7 +21,7 @@ class Util {
   }
 }
 
-if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
   module.exports = Util;
 } else {
   window.Util = Util;

@@ -51,7 +51,7 @@ class Display {
   }
 }
 
-if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
   module.exports = Display;
 } else {
   window.Display = Display;

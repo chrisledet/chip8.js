@@ -1,6 +1,6 @@
 "use strict";
 
-var CPU = require('./../js/cpu');
+var CPU = require("./../js/cpu");
 
 describe("CPU", function(){
   let cpu;

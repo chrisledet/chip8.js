@@ -3,7 +3,6 @@
 class RomLoader {
   constructor(romFile, callback) {
     let reader = new FileReader();
-    let self = this;
 
     this.isLoaded = false;
     this.romData = [];
@@ -13,7 +12,7 @@ class RomLoader {
       let romData = new Uint8Array(buffer);
 
       callback(romData);
-    }
+    };
 
     reader.readAsArrayBuffer(romFile);
   }
@@ -23,7 +22,7 @@ class RomLoader {
   }
 }
 
-if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
   module.exports = RomLoader;
 } else {
   window.RomLoader = RomLoader;

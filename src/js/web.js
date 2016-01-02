@@ -1,9 +1,9 @@
 "use strict";
 
-let CPU = require('./cpu');
-let Display = require('./display');
-let RomLoader = require('./rom_loader');
-let audioSource = require('../sounds/beep.wav');
+let CPU = require("./cpu");
+let Display = require("./display");
+let RomLoader = require("./rom_loader");
+let audioSource = require("../sounds/beep.wav");
 
 var romFileUpload = document.getElementById("rom-file");
 var debugToggle = document.getElementById("debug-toggle");
@@ -71,4 +71,4 @@ document.onkeydown = function(e) {
   }
 
   cpu.setInput(input);
-}
+};
