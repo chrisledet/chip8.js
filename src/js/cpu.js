@@ -396,5 +396,5 @@ class CPU {
 if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
   module.exports = CPU;
 } else {
-  window.Display = CPU;
+  window.CPU = CPU;
 }
