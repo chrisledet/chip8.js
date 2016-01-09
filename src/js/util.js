@@ -19,6 +19,12 @@ class Util {
   static rnd() {
     return Math.floor(Math.random() * (0xFF - 0x0)) + 0x0;
   }
+
+  static clockRateInMS(clockRate) {
+    clockRate = parseInt(clockRate, 10);
+    if (clockRate < 1) { clockRate = 1; }
+    return 1000/clockRate;
+  }
 }
 
 if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
