@@ -15,6 +15,25 @@ var cpu;
 var pid;
 var frequency = 16;
 
+window.keybindings = {
+  49: 0x1,  // 1
+  50: 0x2,  // 2
+  51: 0x3,  // 3
+  52: 0x4,  // 4
+  81: 0x5,  // Q
+  87: 0x6,  // W
+  69: 0x7,  // E
+  82: 0x8,  // R
+  65: 0x9,  // A
+  83: 0xA,  // S
+  68: 0xB,  // D
+  70: 0xC,  // F
+  90: 0xD,  // Z
+  88: 0xE,  // X
+  67: 0xF,  // C
+  86: 0x10  // V
+};
+
 debugToggle.onclick = function() {
   if (!cpu) { return; }
 
@@ -51,26 +70,5 @@ romFile.onchange = function() {
 document.onkeydown = function(e) {
   if (!cpu) { return; }
 
-  var key = e.keyCode - 48;
-  var input = key;
-
-  if (key > 9) {
-    if (key == 33) {
-      input = 0xA;
-    } else if (key == 39) {
-      input = 0xB;
-    } else if (key == 21) {
-      input = 0xC;
-    } else if (key == 34) {
-      input = 0xD;
-    } else if (key == 36) {
-      input = 0xE;
-    } else if (key == 41) {
-      input = 0xF;
-    } else {
-      return;
-    }
-  }
-
-  cpu.setInput(input);
+  cpu.setInput(window.keybindings[e.keyCode] || 0);
 };
