@@ -5,7 +5,7 @@ let Display = require("./display");
 let RomLoader = require("./rom_loader");
 let audioSource = require("../sounds/beep.wav");
 
-var romFileUpload = document.getElementById("rom-file");
+var romFile = document.getElementById("rom-file");
 var debugToggle = document.getElementById("debug-toggle");
 var resumeSwitch = document.getElementById("resume");
 var stopSwitch = document.getElementById("stop");
@@ -13,6 +13,7 @@ var displayDomContainer = document.getElementById("display");
 
 var cpu;
 var pid;
+var frequency = 16;
 
 debugToggle.onclick = function() {
   if (!cpu) { return; }
@@ -24,25 +25,26 @@ stopSwitch.onclick = function() {
   if (!pid) { return; }
 
   window.clearInterval(pid);
-
   pid = null;
 };
 
 resumeSwitch.onclick = function() {
   if (pid) { return; }
 
-  pid = window.setInterval(cpu.step.bind(cpu), 16);
+  pid = window.setInterval(cpu.step.bind(cpu), frequency);
 };
 
-romFileUpload.onchange = function() {
-  new RomLoader(this.files[0], function(romData){
+romFile.onchange = function() {
+  if (pid) { window.clearInterval(pid); }
+
+  new RomLoader(this.files[0], function(rom){
     let display = new Display(displayDomContainer);
     let audio = new Audio(audioSource);
 
     cpu = new CPU(display, audio);
-    cpu.loadRom(romData);
+    cpu.loadRom(rom);
 
-    pid = window.setInterval(cpu.step.bind(cpu), 16);
+    pid = window.setInterval(cpu.step.bind(cpu), frequency);
   });
 };
 
