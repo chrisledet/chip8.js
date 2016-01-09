@@ -41,11 +41,20 @@ body {
   display: flex;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   margin: 5px auto;
   width: 700px;
   background: #fff;
+}
+
+code {
+  margin: 5px 0;
+  padding: 10px;
+  font-size: 120%;
+  white-space: pre-wrap;
+  background: #ecf0f1;
+  display: block;
 }
 
 .button {

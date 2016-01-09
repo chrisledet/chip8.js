@@ -18,6 +18,20 @@
       <div class="button center --red" id="stop">Stop</div>
       <div class="button center --green" id="resume">Resume</div>
     </div>
+    <div class="config">
+      <h3>Tweaking the VM</h3>
+      <p>You can tweak the VM using the web console.</p>
+
+      <p>
+        <strong>Change frequency</strong> (<i>restart required</i>)
+        <code>window.chip8vm.clockRate = 1000; // set to 1000Hz</code>
+      </p>
+
+      <p>
+        <strong>Add or update a keybinding</strong>
+        <code>window.chip8vm.keybindings[71] = 1; // map "G" to 1</code>
+      </p>
+    </div>
     {% for (var chunk in o.htmlWebpackPlugin.files.js) { %}
     <script src="{%= o.htmlWebpackPlugin.files.js[chunk] %}"></script>
     {% } %}
