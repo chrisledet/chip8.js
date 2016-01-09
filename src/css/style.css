@@ -23,11 +23,6 @@ body {
   font-weight: normal;
 }
 
-/*
-  Credit Notice
-  Button styles were originally written as "Simple Button Styles" by Simon Busborg: http://codepen.io/simonbusborg/pen/cyxad
-*/
-
 .container {
   width: 700px;
   margin: 0 auto;
@@ -48,7 +43,7 @@ body {
   background: #fff;
 }
 
-code {
+pre {
   margin: 5px 0;
   padding: 10px;
   font-size: 120%;
@@ -56,6 +51,28 @@ code {
   background: #ecf0f1;
   display: block;
 }
+
+.keybindings {
+  display: inline-block;
+  width: 200px;
+  float: left;
+}
+
+.keybindings table tr td {
+  padding: 18px 18px;
+  background-color: #ecf0f1;
+}
+
+.tweak {
+  display: inline-block;
+  width: 400px;
+  float: right;
+}
+
+/*
+  Credit Notice
+  Button styles were originally written as "Simple Button Styles" by Simon Busborg: http://codepen.io/simonbusborg/pen/cyxad
+*/
 
 .button {
   border: 0 none;

@@ -18,18 +18,39 @@
       <div class="button center --red" id="stop">Stop</div>
       <div class="button center --green" id="resume">Resume</div>
     </div>
-    <div class="config">
-      <h3>Tweaking the VM</h3>
-      <p>You can tweak the VM using the web console.</p>
+    <div class="keybindings">
+      <h3>Default keybindings</h3>
+      <table>
+        <tr>
+          <td>1</td><td>2</td><td>3</td><td>4</td>
+        </tr>
+        <tr>
+          <td>5(Q)</td><td>6(W)</td><td>7(E)</td><td>8(R)</td>
+        </tr>
+        <tr>
+          <td>9(A)</td><td>A(S)</td><td>B(D)</td><td>C(F)</td>
+        </tr>
+        <tr>
+          <td>D(Z)</td><td>E(X)</td><td>F(C)</td><td>0(V)</td>
+        </tr>
+      </table>
+    </div>
+    <div class="tweak">
+      <h3>Settings</h3>
+      <p>You can tweak the VM using the web console</p>
 
       <p>
-        <strong>Change frequency</strong> (<i>restart required</i>)
-        <code>window.chip8vm.clockRate = 1000; // set to 1000Hz</code>
+        <strong>Change frequency</strong> <i>(restart required)</i>
+        <pre>
+// set to 1000Hz
+window.chip8vm.clockRate = 1000;</pre>
       </p>
 
       <p>
         <strong>Add or update a keybinding</strong>
-        <code>window.chip8vm.keybindings[71] = 1; // map "G" to 1</code>
+        <pre>
+// map "G" to 1
+window.chip8vm.keybindings[71] = 1;</pre>
       </p>
     </div>
     {% for (var chunk in o.htmlWebpackPlugin.files.js) { %}
