@@ -4,7 +4,7 @@
   "description": "CHIP-8 Interpreter",
   "main": "main.js",
   "scripts": {
-    "build": "rm -rf dist/* && webpack",
+    "build": "webpack",
     "test": "jasmine-node src/spec",
     "deploy": "surge -p dist -d chip8js.surge.sh"
   },
