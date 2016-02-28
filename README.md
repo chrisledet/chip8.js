@@ -29,10 +29,6 @@ npm run build
 
 Open `dist/index.html` file with any modern browser
 
-```shell
-open dist/index.html
-```
-
 ## License
 
 Code is licensed under MIT. See the LICENSE file for details.
