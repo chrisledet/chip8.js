@@ -1,9 +1,19 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+@import url(http://fonts.googleapis.com/css?family=Share+Tech+Mono);
 
 body {
   margin: 0 auto;
   width: 700px;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Share Tech Mono";
+  background: #262626;
+  color: #46FF00;
+}
+
+a {
+  color: #46FF00;
+}
+
+a:visited {
+  color: #46FF00;
 }
 
 #display {
@@ -27,6 +37,7 @@ body {
   width: 700px;
   margin: 0 auto;
   background: #262626;
+  border: 1px solid;
 }
 
 .controls {
@@ -38,18 +49,17 @@ body {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  margin: 5px auto;
+  padding-top: 10px;
   width: 700px;
-  background: #fff;
 }
 
 pre {
   margin: 5px 0;
   padding: 10px;
-  font-size: 120%;
   white-space: pre-wrap;
-  background: #ecf0f1;
   display: block;
+  border: 1px solid;
+  font-family: "Share Tech Mono";
 }
 
 .keybindings {
@@ -59,13 +69,13 @@ pre {
 }
 
 .keybindings table tr td {
-  padding: 18px 18px;
-  background-color: #ecf0f1;
+  padding: 14px 14px;
+  border: 1px solid;
 }
 
 .tweak {
   display: inline-block;
-  width: 400px;
+  width: 375px;
   float: right;
 }
 
