@@ -1,8 +1,6 @@
 # chip8.js [![Build Status](https://travis-ci.org/chrisledet/chip8.js.svg)](https://travis-ci.org/chrisledet/chip8.js)
 
-A CHIP-8 VM in JavaScript and HTML5
-
-![screenshot](https://raw.githubusercontent.com/chrisledet/chip8.js/master/Screenshot.png)
+A CHIP-8 VM built with JavaScript and HTML5. Check out the [live demo](https://chrisledet.com/projects/chip8.js).
 
 ## Build
 
