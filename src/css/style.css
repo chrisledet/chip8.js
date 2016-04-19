@@ -79,6 +79,10 @@ pre {
   float: right;
 }
 
+.tweak-header {
+  cursor: help;
+}
+
 /*
   Credit Notice
   Button styles were originally written as "Simple Button Styles" by Simon Busborg: http://codepen.io/simonbusborg/pen/cyxad
