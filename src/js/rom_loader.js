@@ -4,7 +4,6 @@ class RomLoader {
   constructor(romFile, callback) {
     let reader = new FileReader();
 
-    this.isLoaded = false;
     this.romData = [];
 
     reader.onload = function(e) {
