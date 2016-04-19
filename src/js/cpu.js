@@ -50,8 +50,7 @@ class CPU {
       0xF0, 0x80, 0xF0, 0x80, 0xF0, // E
       0xF0, 0x80, 0xF0, 0x80, 0x80  // F
     ];
-
-    this.setup();
+    this.reset();
 
     this.copyIntoMemory(0x0, font);
     this.copyIntoMemory(0x200, data);
@@ -79,6 +78,20 @@ class CPU {
     }
 
     this.tick();
+  }
+
+  reset() {
+    for (let x = 0; x < 0xF; x++) {
+      this.v[x] = 0x0;
+    }
+
+    for (let x = 0; x < 0x1000; x++) {
+      this.memory[x] = 0x0;
+    }
+
+    this.display.clear();
+
+    this.pc = 0x200;
   }
 
   /* private */
@@ -357,21 +370,6 @@ class CPU {
       }
       break;
     }
-  }
-
-  /* private */
-  setup() {
-    for (let x = 0; x < 0xF; x++) {
-      this.v[x] = 0x0;
-    }
-
-    for (let x = 0; x < 0x1000; x++) {
-      this.memory[x] = 0x0;
-    }
-
-    this.display.clear();
-
-    this.pc = 0x200;
   }
 
   /* private */
