@@ -4,28 +4,13 @@ A CHIP-8 VM built with JavaScript and HTML5. Check out the [live demo](https://c
 
 ## Build
 
-We use [webpack](https://webpack.github.io/) to build the project in `src/` and save them to `dist/`.
-
-Clone repository
-
 ```shell
-git clone git@github.com:chrisledet/chip8.js.git
+$ git clone git@github.com:chrisledet/chip8.js.git
+$ cd chip8.js
+$ npm run build
 ```
 
-Install dependencies
-
-```shell
-cd chip8.js
-npm install
-```
-
-Build
-
-```shell
-npm run build
-```
-
-Open `dist/index.html` file with any modern browser
+Open `dist/index.html` file with any modern browser.
 
 ## License
 
