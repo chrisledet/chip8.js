@@ -2,6 +2,8 @@
 
 A CHIP-8 VM built with JavaScript and HTML5. Check out the [live demo](https://chrisledet.com/projects/chip8.js).
 
+![screenshot](https://raw.githubusercontent.com/chrisledet/chip8.js/master/chip8.JPG)
+
 ## Build
 
 ```shell
