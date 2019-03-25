@@ -1,6 +1,4 @@
-"use strict";
-
-var CPU = require("./../js/cpu");
+import CPU from "./../js/CPU.js";
 
 describe("CPU", function(){
   let cpu;

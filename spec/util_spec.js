@@ -1,6 +1,4 @@
-"use strict";
-
-var Util = require("./../js/util");
+import Util from "./../js/Util.js";
 
 describe("Util", function(){
   describe("clockRateInMS()", function(){

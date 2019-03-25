@@ -1,9 +1,6 @@
-/*eslint no-console: 0*/
-"use strict";
+import Util from "./Util.js";
 
-let Util = require("./util");
-
-class CPU {
+export default class CPU {
   constructor(display, audio) {
     // cpu state
     this.v = [];
@@ -73,7 +70,7 @@ class CPU {
       this.soundTimer -= 1;
 
       if (this.soundTimer == 0) {
-        this.audio.play();
+        if (this.audio) this.audio.play();
       }
     }
 
@@ -265,7 +262,7 @@ class CPU {
       let newPixelStates = this.display.current();
 
       // N bytes of sprite data starting at the address stored in I
-      for (var spriteIndex = 0; spriteIndex < n; spriteIndex++) {
+      for (let spriteIndex = 0; spriteIndex < n; spriteIndex++) {
         // what sprite are we looking for
         let sprite = this.memory[this.i + spriteIndex];
         // convert sprite opscode into switches
@@ -274,7 +271,7 @@ class CPU {
         this.v[0xF] = 0;
 
         // for the width of 8 pixels
-        for (var spriteDrawingIndex = 0; spriteDrawingIndex < 8; spriteDrawingIndex++) {
+        for (let spriteDrawingIndex = 0; spriteDrawingIndex < 8; spriteDrawingIndex++) {
           let drawPosition = {
             x: (position.x + spriteDrawingIndex),
             y: (position.y + spriteIndex)
@@ -389,10 +386,4 @@ class CPU {
       this.pc += 2;
     }
   }
-}
-
-if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
-  module.exports = CPU;
-} else {
-  window.CPU = CPU;
 }

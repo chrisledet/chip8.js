@@ -1,6 +1,4 @@
-"use strict";
-
-class RomLoader {
+export default class RomLoader {
   constructor(romFile, callback) {
     let reader = new FileReader();
 
@@ -19,10 +17,4 @@ class RomLoader {
   setCallback(callback) {
     this.callback = callback;
   }
-}
-
-if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
-  module.exports = RomLoader;
-} else {
-  window.RomLoader = RomLoader;
 }

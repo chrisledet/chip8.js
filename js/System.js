@@ -1,10 +1,8 @@
-"use strict";
+import CPU from "./CPU.js";
+import Display from "./Display.js";
+import Util from "./Util.js";
 
-let CPU = require("./cpu");
-let Display = require("./display");
-let Util = require("./util");
-
-class System {
+export default class System {
   constructor(displaySource, audioSource) {
     this.clockRate = 500;
     this.keybindings = {
@@ -26,11 +24,11 @@ class System {
       86: 0x10  // V
     };
 
+    const display = new Display(displaySource);
+    const audio = audioSource ? new Audio(audioSource) : null;
+
     this._pid = null;
-    this._cpu = new CPU(
-      new Display(displaySource),
-      new Audio(audioSource)
-    );
+    this._cpu = new CPU(display, audio);
   }
 
   boot(rom) {
@@ -44,7 +42,7 @@ class System {
 
   start() {
     if (this._pid) { return; }
-    var interval = Util.clockRateInMS(this.clockRate);
+    let interval = Util.clockRateInMS(this.clockRate);
     this._pid = window.setInterval(this._cpu.step.bind(this._cpu), interval);
   }
 
@@ -62,8 +60,3 @@ class System {
   }
 }
 
-if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
-  module.exports = System;
-} else {
-  window.System = System;
-}

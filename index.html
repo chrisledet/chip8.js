@@ -3,9 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>chip8.js</title>
-    {% for (var chunk in o.htmlWebpackPlugin.files.css) { %}
-    <link rel="stylesheet" type="text/css" href="{%= o.htmlWebpackPlugin.files.css[chunk] %}">
-    {% } %}
+    <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body>
     <h2>chip8.js <span class="subtitle">by <a href="https://chrisledet.com">Chris Ledet</a></span></h2>
@@ -77,23 +75,6 @@ window.chip8vm.clockRate = 1000;</pre>
 window.chip8vm.keybindings[71] = 1;</pre>
       </p>
     </div>
-    {% for (var chunk in o.htmlWebpackPlugin.files.js) { %}
-    <script src="{%= o.htmlWebpackPlugin.files.js[chunk] %}"></script>
-    {% } %}
-
-  <script type="text/javascript">
-    var _gauges = _gauges || [];
-    (function() {
-      var t   = document.createElement('script');
-      t.type  = 'text/javascript';
-      t.async = true;
-      t.id    = 'gauges-tracker';
-      t.setAttribute('data-site-id', '56d296a94b2ffa05ff002613');
-      t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
-      t.src = 'https://d36ee2fcip1434.cloudfront.net/track.js';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(t, s);
-    })();
-  </script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>

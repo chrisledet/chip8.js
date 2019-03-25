@@ -1,6 +1,4 @@
-"use strict";
-
-class Display {
+export default class Display {
   constructor(displayDomContainer) {
     let pixelWidth = displayDomContainer.width / 64;
     let pixelHeight = displayDomContainer.height / 32;
@@ -40,19 +38,13 @@ class Display {
   clearStates() {
     let states = [];
 
-    for (var x = 0; x < 64; x++) {
+    for (let x = 0; x < 64; x++) {
       states[x] = [];
-      for (var y = 0; y < 32; y++) {
+      for (let y = 0; y < 32; y++) {
         states[x][y] = false;
       }
     }
 
     return states;
   }
-}
-
-if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
-  module.exports = Display;
-} else {
-  window.Display = Display;
 }

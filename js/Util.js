@@ -1,6 +1,4 @@
-"use strict";
-
-class Util {
+export default class Util {
   static byteToSwitch(b) {
     let s = [
       (b & 0x80) == 0x80,
@@ -25,10 +23,4 @@ class Util {
     if (clockRate < 1) { clockRate = 1; }
     return 1000/clockRate;
   }
-}
-
-if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
-  module.exports = Util;
-} else {
-  window.Util = Util;
 }
