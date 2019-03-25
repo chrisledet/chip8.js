@@ -3,7 +3,7 @@ import RomLoader from "./js/RomLoader.js";
 
 const displaySource = document.getElementById("display");
 const resumeSwitch = document.getElementById("resume");
-const fileUpload = document.getElementById("rom-file");
+const uploader = document.getElementById("rom-uploader");
 const romSelector = document.getElementById("rom-selector");
 const stopSwitch = document.getElementById("stop");
 // TODO: figure out audio sources
@@ -26,7 +26,7 @@ stopSwitch.onclick = () => {
   vm.stop();
 };
 
-fileUpload.onchange = (e) => {
+uploader.onchange = (e) => {
   if (e.target.files.length < 1) { return; }
   const romFile = e.target.files[0];
   new RomLoader(romFile, (rom) => {

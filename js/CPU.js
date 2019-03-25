@@ -15,21 +15,7 @@ export default class CPU {
     // emulator state
     this.audio = audio;
     this.display = display;
-    this.awaitInput = false;
-    this.currentInput = 0x0;
-    this.debugMode = false;
-  }
-
-  debug() {
-    if (this.debugMode) {
-      console.log(arguments);
-    }
-  }
-
-  loadRom(data) {
-    this.debug("Loading ROM");
-
-    let font = [
+    this.font = [
       0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
       0x20, 0x60, 0x20, 0x20, 0x70, // 1
       0xF0, 0x10, 0xF0, 0x80, 0xF0, // 2
@@ -47,9 +33,23 @@ export default class CPU {
       0xF0, 0x80, 0xF0, 0x80, 0xF0, // E
       0xF0, 0x80, 0xF0, 0x80, 0x80  // F
     ];
+    this.awaitInput = false;
+    this.currentInput = 0x0;
+    this.debugMode = false;
+  }
+
+  debug() {
+    if (this.debugMode) {
+      console.log(arguments);
+    }
+  }
+
+  loadRom(data) {
+    this.debug("Loading ROM");
+
     this.reset();
 
-    this.copyIntoMemory(0x0, font);
+    this.copyIntoMemory(0x0, this.font);
     this.copyIntoMemory(0x200, data);
   }
 
