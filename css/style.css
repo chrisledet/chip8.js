@@ -1,9 +1,8 @@
-@import url(https://fonts.googleapis.com/css?family=Share+Tech+Mono);
+/*@import url(https://fonts.googleapis.com/css?family=Share+Tech+Mono);*/
 
 body {
-  margin: 0 auto;
-  width: 700px;
-  font-family: "Share Tech Mono";
+  margin: 0;
+  font-family: "Consolas", "Lucida Console", "Liberation Mono";
   background: #262626;
   color: #46FF00;
 }
@@ -16,15 +15,54 @@ a:visited {
   color: #46FF00;
 }
 
+.container {
+  margin: 0 auto;
+  width: 330px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 #display {
-  width: 640px;
+  width: 320px;
   height: 320px;
-  display: block;
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 3%;
+
+  background: #262626;
+  border: 5px solid;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.storage {
+  width: 315px;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.controls {
+  width: 320px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.keypad {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.key {
+  width: 90px;
+  padding: 5px;
+  margin: 5px 5px;
 }
 
 .subtitle {
@@ -33,24 +71,18 @@ a:visited {
   font-weight: normal;
 }
 
-.container {
-  width: 700px;
-  margin: 0 auto;
-  background: #262626;
-  border: 1px solid;
+#rom-selector {
+  width: 160px;
+  height: 32px;
 }
 
-.controls {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  padding-top: 10px;
-  width: 700px;
+#rom-uploader {
+  display: none;
+}
+
+uploader-label {
+  cursor: pointer;
+
 }
 
 pre {
@@ -81,43 +113,4 @@ pre {
 
 .tweak-header {
   cursor: help;
-}
-
-/*
-  Credit Notice
-  Button styles were originally written as "Simple Button Styles" by Simon Busborg: http://codepen.io/simonbusborg/pen/cyxad
-*/
-
-.button {
-  border: 0 none;
-  border-radius: 36px;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 14px;
-  padding: 12px 45px;
-  text-transform: none;
-  -webkit-transition: all 100ms ease-in-out;
-          transition: all 100ms ease-in-out;
-  width: auto;
-  text-align: center;
-}
-
-.button:hover {
-  opacity: .7;
-}
-
-.button.--light {
-  background: #ecf0f1;
-  color: #34495e;
-}
-
-.button.--red {
-  background: #e74c3c;
-  color: #FFFFFF;
-}
-
-.button.--green {
-  background: #4ac15a;
-  color: #FFFFFF;
 }

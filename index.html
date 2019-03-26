@@ -6,74 +6,71 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body>
-    <h2>chip8.js <span class="subtitle">by <a href="https://chrisledet.com">Chris Ledet</a></span></h2>
     <div class='container'>
-      <canvas id="display" width="640px" height="320px"></canvas>
-    </div>
-    <div class="controls">
-      <select id="rom-selector">
-        <option>Select ROM</option>
-        <option>15PUZZLE</option>
-        <option>BLITZ</option>
-        <option>BRIX</option>
-        <option>CONNECT4</option>
-        <option>GUESS</option>
-        <option>HIDDEN</option>
-        <option>INVADERS</option>
-        <option>KALEID</option>
-        <option>MAZE</option>
-        <option>MERLIN</option>
-        <option>MISSILE</option>
-        <option>PONG</option>
-        <option>PONG2</option>
-        <option>PUZZLE</option>
-        <option>SYZYGY</option>
-        <option>TANK</option>
-        <option>TETRIS</option>
-        <option>TICTAC</option>
-        <option>UFO</option>
-        <option>VBRIX</option>
-        <option>VERS</option>
-        <option>WIPEOFF</option>
-      </select>
-      or
-      Upload
-      <input type="file" id="rom-uploader">
-      <div class="button center --red" id="stop">Stop</div>
-      <div class="button center --green" id="resume">Resume</div>
-    </div>
-    <div class="keybindings">
-      <h3>Default keybindings</h3>
-      <table>
-        <tr>
-          <td>1</td><td>2</td><td>3</td><td>4</td>
-        </tr>
-        <tr>
-          <td>5(Q)</td><td>6(W)</td><td>7(E)</td><td>8(R)</td>
-        </tr>
-        <tr>
-          <td>9(A)</td><td>A(S)</td><td>B(D)</td><td>C(F)</td>
-        </tr>
-        <tr>
-          <td>D(Z)</td><td>E(X)</td><td>F(C)</td><td>0(V)</td>
-        </tr>
-      </table>
-    </div>
-    <div class="tweak">
-      <h3 class="tweak-header" title="You can tweak the VM using the web console">Settings</h3>
-      <p>
-        <strong>Change frequency</strong> <i>(restart required)</i>
-        <pre>
-// set to 1000Hz
-window.chip8vm.clockRate = 1000;</pre>
-      </p>
+      <div>
+        <h2>chip8.js <span class="subtitle">by <a href="https://chrisledet.com">Chris Ledet</a></span></h2>
+      </div>
 
-      <p>
-        <strong>Add or update a keybinding</strong>
-        <pre>
-// map "G" to 1
-window.chip8vm.keybindings[71] = 1;</pre>
-      </p>
+      <div class="storage">
+        <select id="rom-selector">
+          <option>Select ROM</option>
+          <option>15PUZZLE</option>
+          <option>BLITZ</option>
+          <option>BRIX</option>
+          <option>CONNECT4</option>
+          <option>GUESS</option>
+          <option>HIDDEN</option>
+          <option>INVADERS</option>
+          <option>KALEID</option>
+          <option>MAZE</option>
+          <option>MERLIN</option>
+          <option>MISSILE</option>
+          <option>PONG</option>
+          <option>PONG2</option>
+          <option>PUZZLE</option>
+          <option>SYZYGY</option>
+          <option>TANK</option>
+          <option>TETRIS</option>
+          <option>TICTAC</option>
+          <option>UFO</option>
+          <option>VBRIX</option>
+          <option>VERS</option>
+          <option>WIPEOFF</option>
+        </select>
+
+        <div>
+          <label class="uploader-label" for="rom-uploader">or Upload ROM</label>
+          <input type="file" id="rom-uploader" name="rom-uploader">
+        </div>
+      </div>
+
+      <canvas id="display" width="320px" height="320px"></canvas>
+
+      <div class="controls">
+        <div>
+          <button class="button red" id="stop">Stop</button>
+          <button class="button green" id="resume">Resume</button>
+        </div>
+
+        <div class="keypad">
+          <button data-input="0x1" class="key">1</button>
+          <button data-input="0x2" class="key">2</button>
+          <button data-input="0x3" class="key">3</button>
+          <button data-input="0x4" class="key">4</button>
+          <button data-input="0x5" class="key">5</button>
+          <button data-input="0x6" class="key">6</button>
+          <button data-input="0x7" class="key">7</button>
+          <button data-input="0x8" class="key">8</button>
+          <button data-input="0x9" class="key">9</button>
+          <button data-input="0xA" class="key">A</button>
+          <button data-input="0xB" class="key">B</button>
+          <button data-input="0xC" class="key">C</button>
+          <button data-input="0xD" class="key">D</button>
+          <button data-input="0xE" class="key">E</button>
+          <button data-input="0xF" class="key">F</button>
+          <button data-input="0x10" class="key">0</button>
+        </div>
+      </div>
     </div>
     <script type="module" src="index.js"></script>
   </body>

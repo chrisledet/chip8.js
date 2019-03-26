@@ -6,17 +6,18 @@ const resumeSwitch = document.getElementById("resume");
 const uploader = document.getElementById("rom-uploader");
 const romSelector = document.getElementById("rom-selector");
 const stopSwitch = document.getElementById("stop");
+const keyButtons = document.getElementsByClassName("key")
+Array.from(keyButtons).forEach(b => {
+  b.onclick = (e) => {
+    const input = Number(e.target.dataset.input);
+    if (!isNaN(input)) vm.setInput(input);
+  }
+})
+
 // TODO: figure out audio sources
 // let audioSource from "../sounds/beep.wav";
 
 const vm = new System(displaySource, null);
-
-/* event handlers */
-document.onkeydown = e => {
-  const input = vm.keybindings[e.keyCode] || 0;
-  console.log("input", input);
-  vm.setInput(input);
-};
 
 resumeSwitch.onclick = () => {
   vm.start();
