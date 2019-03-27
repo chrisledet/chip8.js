@@ -1,4 +1,17 @@
-import Util from "./Util.js";
+const rnd = () => Math.floor(Math.random() * (0xFF - 0x0)) + 0x0;
+
+const byteToSwitch = (b) => {
+  return [
+    (b & 0x80) == 0x80,
+    (b & 0x40) == 0x40,
+    (b & 0x20) == 0x20,
+    (b & 0x10) == 0x10,
+    (b & 0x08) == 0x08,
+    (b & 0x04) == 0x04,
+    (b & 0x02) == 0x02,
+    (b & 0x01) == 0x01
+  ];
+}
 
 export default class CPU {
   constructor(display, audio) {
@@ -253,7 +266,7 @@ export default class CPU {
       break;
     case 0xC:
       // Sets VX to the result of a bitwise and operation on a random number and NN.
-      this.v[x] = Util.rnd() & nn;
+      this.v[x] = rnd() & nn;
       break;
     case 0xD:
       // Draw a sprite at position VX, VY with N bytes of sprite data starting at the address stored in I
@@ -266,7 +279,7 @@ export default class CPU {
         // what sprite are we looking for
         let sprite = this.memory[this.i + spriteIndex];
         // convert sprite opscode into switches
-        let spritePixelStates = Util.byteToSwitch(sprite);
+        let spritePixelStates = byteToSwitch(sprite);
 
         this.v[0xF] = 0;
 

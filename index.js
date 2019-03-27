@@ -1,6 +1,6 @@
 import System from "./js/System.js";
-import RomLoader from "./js/RomLoader.js";
 
+// gather all the DOM objects
 const displaySource = document.getElementById("display");
 const resumeSwitch = document.getElementById("resume");
 const uploader = document.getElementById("rom-uploader");
@@ -14,37 +14,41 @@ Array.from(keyButtons).forEach(b => {
   }
 })
 
+
+// set up virtual machine
 // TODO: figure out audio sources
 // let audioSource from "../sounds/beep.wav";
-
 const vm = new System(displaySource, null);
+const readROMFile = (file, callback) => {
+  let reader = new FileReader();
 
-resumeSwitch.onclick = () => {
-  vm.start();
-};
+  reader.onload = (e) => {
+    let buffer = e.target.result;
+    let romData = new Uint8Array(buffer);
+    callback(romData);
+  };
 
-stopSwitch.onclick = () => {
-  vm.stop();
-};
+  reader.readAsArrayBuffer(file);
+}
+
+// set up DOM events and listeners
+resumeSwitch.onclick = () => vm.start();
+stopSwitch.onclick = () => vm.stop();
 
 uploader.onchange = (e) => {
   if (e.target.files.length < 1) { return; }
   const romFile = e.target.files[0];
-  new RomLoader(romFile, (rom) => {
-    vm.boot(rom);
-  });
+  readROMFile(romFile, (rom) => vm.boot(rom));
 };
 
-romSelector.onchange = (e)  => {
+romSelector.onchange = (e) => {
   if (e.target.value === "Select ROM") { return; }
   const romName = e.target.value;
 
   fetch("./roms/" + romName)
     .then(r => r.blob())
     .then((blob) => {
-      new RomLoader(blob, (rom) => {
-        vm.boot(rom);
-      });
+      readROMFile(blob, (rom) => { vm.boot(rom); });
     });
 };
 
