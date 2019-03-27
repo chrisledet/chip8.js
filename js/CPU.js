@@ -358,12 +358,10 @@ export default class CPU {
         this.i = this.v[x] * 5;
         break;
       case 0x33:
-        //  When this instruction is executed by the interpreter, the value stored in register VX is converted to its decimal equivalent.
-        // Because each register is only eight bits in length, there will be three decimal digits (including any leading zeros).
-        // The most significant decimal digit is then stored in at the address found in I, the next in I + 1, and the least significant digit in I + 2.
-        // These values might then be used along with the font utility to output a decimal number to the screen.
-        // TODO!
-
+        let value = this.v[x];
+        this.memory[this.i] = Math.floor(value/100);
+        this.memory[this.i+1] = Math.floor(value/10) % 10;
+        this.memory[this.i+2] = (value % 100) % 10;
         break;
       case 0x55:
         // Write V0 to VX to memory starting at address I.
