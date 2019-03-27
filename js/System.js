@@ -26,6 +26,9 @@ export default class System {
     this._pid = window.setInterval(() => {
       this._cpu.step();
     }, 1000/this.clockRate);
+    this._pid = window.setInterval(() => {
+      this._cpu.stepTimer();
+    }, 1000/60);
   }
 
   stop() {

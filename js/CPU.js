@@ -72,9 +72,11 @@ export default class CPU {
 
   step() {
     if (this.awaitInput) { return; }
-
     this.cycle();
+    this.tick();
+  }
 
+  stepTimer() {
     if (this.delayTimer > 0) {
       this.delayTimer -= 1;
     }
@@ -86,8 +88,6 @@ export default class CPU {
         if (this.audio) this.audio.play();
       }
     }
-
-    this.tick();
   }
 
   reset() {
