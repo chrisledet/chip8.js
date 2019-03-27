@@ -6,7 +6,7 @@ export default class System {
     const display = new Display(displaySource);
     const audio = audioSource ? new Audio(audioSource) : null;
 
-    this.clockRate = 250;
+    this.clockRate = 300;
     this._pid = null;
     this._cpu = new CPU(display, audio);
   }
@@ -28,7 +28,7 @@ export default class System {
     }, 1000/this.clockRate);
     this._pid = window.setInterval(() => {
       this._cpu.stepTimer();
-    }, 1000/60);
+    }, 1000/60); // delay and sound timers run at fixed 60Hz
   }
 
   stop() {
