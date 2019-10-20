@@ -6,7 +6,8 @@ const resumeSwitch = document.getElementById("resume");
 const uploader = document.getElementById("rom-uploader");
 const romSelector = document.getElementById("rom-selector");
 const stopSwitch = document.getElementById("stop");
-const keyButtons = document.getElementsByClassName("key")
+const keyButtons = document.getElementsByClassName("key");
+
 Array.from(keyButtons).forEach(b => {
   b.onclick = (e) => {
     const input = Number(e.target.dataset.input);

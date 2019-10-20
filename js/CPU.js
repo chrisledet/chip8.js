@@ -48,20 +48,18 @@ export default class CPU {
     ];
     this.awaitInput = false;
     this.currentInput = 0x0;
-    this.debugMode = false;
+    this.debugMode = true;
   }
 
   debug() {
     if (this.debugMode) {
-      console.log(arguments);
+      console.log(...arguments);
     }
   }
 
   loadRom(data) {
     this.debug("Loading ROM");
-
     this.reset();
-
     this.copyIntoMemory(0x0, this.font);
     this.copyIntoMemory(0x200, data);
   }
@@ -91,7 +89,7 @@ export default class CPU {
   }
 
   reset() {
-    for (let x = 0; x < 0xF; x++) {
+    for (let x = 0; x <= 0xF; x++) {
       this.v[x] = 0x0;
     }
 
@@ -141,7 +139,7 @@ export default class CPU {
       this.pc = nnn - 2; // -2 because pc is incremented after each
       break;
     case 0x3:
-      this.debug("EXEC: SKIP IF VX == NN", nn);
+      this.debug("EXEC: SKIP IF VX == NN", "x", x, "nn", nn, "v[x]", this.v[x]);
       if (this.v[x] == nn) {
         this.pc += 2;
       }
@@ -190,6 +188,11 @@ export default class CPU {
 
       case 0x3:
         // Sets VX to VX xor VY.
+        // Performs a bitwise exclusive OR on the values of Vx and Vy,
+        // then stores the result in Vx.
+        // An exclusive OR compares the corrseponding bits from two values,
+        // and if the bits are not both the same,
+        // then the corresponding bit in the result is set to 1. Otherwise, it is 0.
         if (this.v[x] == this.v[y]) {
           this.v[x] = 0x0;
         } else {
@@ -383,7 +386,6 @@ export default class CPU {
   /* private */
   copyIntoMemory(startAddress, data) {
     for (let x = 0; x < data.length; x++) {
-      this.debug("Loading ", data[x].toString(16), " in address " + (startAddress + x).toString(16));
       this.memory[startAddress + x] = data[x];
     }
   }

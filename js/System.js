@@ -6,45 +6,51 @@ export default class System {
     const display = new Display(displaySource);
     const audio = audioSource ? new Audio(audioSource) : null;
 
+    this.cpu = new CPU(display, audio);
     this.clockRate = 300;
-    this._pid = null;
-    this._cpu = new CPU(display, audio);
+    this.stepPid = null;
+    this.timerPid = null;
   }
 
   boot(rom) {
     this.stop();
-
-    this._cpu.reset();
-    this._cpu.loadRom(rom);
-
+    this.cpu.loadRom(rom);
     this.start();
   }
 
   start() {
-    if (this._pid) { return; }
+    if (this.stepPid || this.timerPid) {
+      return;
+    }
 
-    this._pid = window.setInterval(() => {
-      this._cpu.step();
+    this.stepPid = window.setInterval(() => {
+      this.cpu.step();
     }, 1000/this.clockRate);
-    this._pid = window.setInterval(() => {
-      this._cpu.stepTimer();
+
+    this.timerPid = window.setInterval(() => {
+      this.cpu.stepTimer();
     }, 1000/60); // delay and sound timers run at fixed 60Hz
   }
 
   stop() {
-    if (!this._pid) { return; }
+    if (this.stepPid) {
+      window.clearInterval(this.stepPid);
+    }
+    if (this.timerPid) {
+       window.clearInterval(this.timerPid);
+    }
 
-    window.clearInterval(this._pid);
-    this._pid = null;
+    this.stepPid = null;
+    this.timerPid = null;
   }
 
   reset() {
     this.stop();
-    this._cpu.reset();
+    this.cpu.reset();
   }
 
   setInput(input) {
-    this._cpu.setInput(input);
+    this.cpu.setInput(input);
   }
 }
 
